@@ -1,0 +1,950 @@
+body {
+  margin: 0;
+  font-family: "微軟正黑體", Arial, sans-serif;
+  background: #ede9e2;
+}
+
+.navbar {
+  background: #3d3370;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  height: 60px;
+  font-size: 1.2em;
+}
+
+.navbar .nav-item {
+  position: relative;
+  margin: 0 20px;
+  cursor: pointer;
+  padding: 10px 0;
+}
+
+.navbar .nav-item::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  /* 修正底線位置 */
+  height: 3px;
+  width: 0%;
+  background-color: #fff;
+  transition: width 0.3s ease-in-out;
+}
+
+
+.navbar .nav-item:hover::after {
+  width: 100%;
+}
+
+.navbar .nav-item.active::after {
+  width: 100%;
+}
+
+.navbar .icons {
+  margin-left: auto;
+  display: flex;
+  gap: 20px;
+}
+
+.navbar .icon {
+  width: 28px;
+  height: 28px;
+  opacity: 0.7;
+}
+
+.icons .nav-item {
+  margin: 0;
+  padding: 0;
+}
+
+.icons .nav-item::after {
+  display: none !important;
+}
+
+.icon {
+  transition: opacity 0.2s ease-in-out;
+}
+
+.nav-item:hover .icon {
+  opacity: 1;
+  /* 原本是 0.7，可設成 1 */
+}
+
+
+
+.container {
+  max-width: 1000px;
+  margin: 40px auto;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px #0001;
+  padding: 40px;
+  min-height: 400px;
+}
+
+.hidden {
+  display: none;
+}
+
+/* 內容區塊樣式 */
+.category-list,
+.book-list,
+.gossip-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.category-item,
+.book-card,
+.gossip-item {
+  background: #f5f3f7;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 10px;
+}
+
+.category-item {
+  flex: 1 1 200px;
+  text-align: center;
+  font-size: 1.1em;
+  cursor: pointer;
+  border: 1px solid #ccc;
+}
+
+.book-card {
+  width: 220px;
+  height: 120px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.gossip-item {
+  font-size: 1.2em;
+  color: #9b8fc1;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  margin-top: 40px;
+}
+
+.login-form input {
+  font-size: 1.1em;
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: 1px solid #aaa;
+}
+
+.login-form button {
+  font-size: 1.1em;
+  padding: 8px 24px;
+  border-radius: 6px;
+  border: none;
+  background: #3d3370;
+  color: #fff;
+  cursor: pointer;
+}
+
+/* 額外樣式補充 */
+#member-center {
+  display: none;
+  animation: fadeIn 0.5s ease-in forwards;
+}
+
+
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.profile-form input {
+  display: block;
+  margin-bottom: 10px;
+}
+
+.tab-content {
+  display: none;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+.tab.active {
+  font-weight: bold;
+}
+
+.search-bar {
+  margin: 20px 0;
+}
+
+.search-bar input {
+  font-size: 1em;
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: 1px solid #aaa;
+}
+
+.search-bar button {
+  font-size: 1em;
+  padding: 6px 16px;
+  border-radius: 6px;
+  border: none;
+  background: #3d3370;
+  color: #fff;
+  cursor: pointer;
+}
+
+.gossip-input {
+  margin-top: 30px;
+  display: flex;
+  gap: 10px;
+}
+
+.gossip-input input {
+  flex: 1;
+  font-size: 1em;
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: 1px solid #aaa;
+}
+
+.gossip-input button {
+  font-size: 1em;
+  padding: 6px 16px;
+  border-radius: 6px;
+  border: none;
+  background: #3d3370;
+  color: #fff;
+  cursor: pointer;
+}
+
+@media (max-width: 700px) {
+  .container {
+    padding: 10px;
+  }
+
+  .book-card {
+    width: 100%;
+  }
+
+  .category-list {
+    flex-direction: column;
+  }
+}
+
+.books-display {
+  margin-top: 20px;
+  padding: 20px;
+}
+
+.books-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 20px;
+  padding: 20px;
+  justify-items: center;
+}
+
+.book-item {
+  width: 220px;
+  /* 固定寬度 */
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 10px;
+  text-align: center;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+/* cart */
+
+.book-item img {
+  width: 100%;
+  height: auto;
+  max-height: 160px;
+  object-fit: contain;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+
+.book-item h4 {
+  color: #333;
+  margin: 6px 0;
+  font-size: 1em;
+  height: 2.4em;
+  /* 保留兩行高度，避免撐開卡片 */
+  overflow: hidden;
+}
+
+.book-item p {
+  color: #e44d26;
+  font-weight: bold;
+  margin: 5px 0;
+}
+
+
+.book-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  margin-top: auto;
+  flex-wrap: wrap;
+  padding-top: 10px;
+  
+}
+
+.gossip-item {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 15px;
+  margin-bottom: 15px;
+  background: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: relative;
+  transition: opacity 0.5s ease-out;
+}
+
+.gossip-content {
+  margin-bottom: 10px;
+}
+
+.gossip-actions {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+
+.like-button {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+  color: #666;
+  border: none;
+  background: none;
+  padding: 5px 10px;
+  border-radius: 15px;
+  transition: background-color 0.2s;
+}
+
+.like-button:hover {
+  background-color: #f0f0f0;
+}
+
+.like-button.liked {
+  color: #e74c3c;
+}
+
+.emoji-reactions {
+  display: flex;
+  gap: 10px;
+}
+
+.emoji-button {
+  cursor: pointer;
+  font-size: 1.2em;
+  padding: 5px;
+  border: none;
+  background: none;
+  border-radius: 50%;
+  transition: background-color 0.2s;
+}
+
+.emoji-button:hover {
+  background-color: #f0f0f0;
+}
+
+.reaction-count {
+  font-size: 0.8em;
+  color: #666;
+  margin-left: 3px;
+}
+
+.gossip-time {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 0.8em;
+  color: #666;
+}
+
+.gossip-item.expiring {
+  border-color: #ff9800;
+}
+
+.gossip-item.expiring .gossip-time {
+  color: #ff9800;
+}
+
+.gossip-item.fade-out {
+  opacity: 0;
+}
+
+
+
+
+/* ❤️ 按鈕 */
+.book-like-button {
+  border: 1px solid #ccc;
+  border-radius: 50%;
+  padding: 8px;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+  background: none;
+  font-size: 1em;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+}
+
+
+
+
+
+.book-like-button:hover{
+  background-color: #ffe0b2;
+  transform: scale(1.2);
+  transition: all 0.2s ease;
+}
+
+/* 💬 按鈕 */
+.book-message-button {
+  border: 1px solid #ccc;
+  border-radius: 50%;
+  padding: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  /* box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1); */
+  background: none;
+  font-size: 1em;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.book-message-button:hover {
+  background-color: #ffe0b2;
+  transform: scale(1.2);
+}
+
+/* cart */
+
+/* 🛒 按鈕 */
+.book-cart-button {
+  border: 1px solid #ccc;
+  border-radius: 50%;
+  padding: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  /* box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1); */
+  background: none;
+  font-size: 1em;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+
+
+
+.book-cart-button:hover {
+  background-color: #ffe0b2;
+  transform: scale(1.2);
+}
+
+
+
+.cart-grid {
+  display: flex;
+  gap: 30px;
+}
+
+
+.cart-left {
+  flex: 2;
+}
+
+.cart-right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  font-size: 1rem;
+}
+
+
+
+.cart-item {
+  display: flex;
+  align-items: center;
+  background: white;
+  padding: 10px;
+  border-radius: 10px;
+  margin-bottom: 15px;
+  box-shadow: 0 0 4px #ccc;
+}
+
+.cart-image {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin: 0 10px;
+}
+
+.cart-info {
+  flex: 1;
+}
+
+
+
+
+.cart-title {
+  font-weight: bold;
+}
+
+.cart-price {
+  color: #444;
+}
+
+.remove-btn {
+  background: white;
+  color: black;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.total-amount {
+  font-weight: bold;
+  font-size: 1.2em;
+}
+
+.checkout-btn {
+  padding: 10px;
+  background: #3d3370;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 1em;
+  cursor: pointer;
+}
+
+
+
+
+/* message */
+
+/* 只有訊息中心頁面時，才顯示 */
+.page-message-center #page-message {
+  display: flex;
+  /* 或你原本的顯示樣式 */
+}
+
+/* message-item 外觀 */
+.message-item {
+  background: #f0ece6;
+  padding: 15px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  border-radius: 12px;
+  position: relative;
+}
+
+/* 使用者頭像 */
+.avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: #2c1e64;
+  margin-right: 15px;
+}
+
+/* 點擊開始聊天按鈕（文字風格） */
+.chat-button {
+  background: none;
+  border: none;
+  font-size: 1em;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+}
+
+.chat-button:hover {
+  color: #3d3370;
+}
+
+/* dots 點點點與選單 */
+.dots,
+.chat-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.dots-menu {
+  position: absolute;
+  background: #fff;
+  border: 1px solid #ccc;
+  right: 10px;
+  top: 60px;
+  z-index: 10;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.dots-menu.hidden {
+  display: none;
+}
+
+.menu-item {
+  position: relative;
+  padding: 8px 12px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.menu-item:hover {
+  background-color: #f0f0f0;
+}
+
+
+/* 聊天室視窗樣式 */
+.chat-panel {
+  width: 320px;
+  max-height: 400px;
+  /* 限制最大高度，不會撐出頁面 */
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  border: 1px solid #ccc;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  z-index: 9999;
+}
+
+/* Header 樣式 */
+.chat-header {
+  background: #332970;
+  color: white;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.chat-header .chat-user {
+  font-size: 1.2em;
+}
+
+.chat-close {
+  background-color: #7e93ab;
+  color: white;
+  padding: 2px 8px;
+  border-radius: 6px;
+  font-size: 18px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  display: inline-block;
+}
+
+.chat-close:hover {
+  background-color: #5f6a8c;
+}
+
+.chat-header .dots.close-chat {
+  font-size: 20px;
+  cursor: pointer;
+}
+
+/* 聊天內容區 */
+
+.no-messages-placeholder {
+  text-align: center;
+  color: #999;
+  font-size: 5rem;
+  margin-top: 20px;
+  font: initial;
+}
+
+.chat-body {
+  flex: 1;
+  padding: 10px;
+  overflow-y: auto;
+  background: #f9f9f9;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.chat-body img {
+  max-width: 100%;
+  border-radius: 8px;
+}
+
+/* 輸入區 */
+.chat-input {
+  display: flex;
+  border-top: 1px solid #ccc;
+  padding: 10px;
+  gap: 8px;
+}
+
+.chat-input input[type=\"text\"] {
+  flex: 1;
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+
+.chat-input-box {
+  flex: 1;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  padding: 8px;
+}
+
+
+
+.chat-input .image-upload {
+  display: none;
+}
+
+
+.chat-input button {
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.close-chat {
+  cursor: pointer;
+}
+
+/* 聊天氣泡 */
+.bubble {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  word-break: break-word;
+}
+
+.bubble.right {
+  padding: 10px 14px;
+  border-radius: 16px;
+  margin: 8px 0;
+  max-width: 80%;
+  position: relative;
+  display: inline-block;
+  margin: 1.5em 15px 1.5em 0;
+  padding: 20px 10px;
+  min-width: 120px;
+  max-width: 100%;
+  /* float: right; */
+  clear: both;
+
+  background: #ccbde1;
+  align-self: flex-end;
+}
+
+.bubble.right:before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 100%;
+  margin-top: -15px;
+  border: 15px solid transparent;
+  border-left: 15px solid #ccbde1;
+}
+
+.bubble.left {
+  padding: 10px 14px;
+  border-radius: 16px;
+  margin: 8px 0;
+  max-width: 80%;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  word-break: break-word;
+  position: relative;
+  display: inline-block;
+  margin: 1.5em 0 1.5em 15px;
+  padding: 20px 10px;
+  min-width: 120px;
+  max-width: 100%;
+
+  background: #9aafc6;
+  align-self: flex-start;
+
+}
+
+.bubble.left:before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: -30px;
+  margin-top: -15px;
+  border: 15px solid transparent;
+  border-right: 15px solid #9aafc6;
+}
+
+.bubble img {
+  max-width: 100%;
+  border-radius: 8px;
+}
+
+
+.hidden {
+  display: none;
+}
+
+
+/* support */
+
+
+
+.faq-title {
+  font-size: 1.8em;
+  text-align: center;
+  color: #3d3370;
+  margin-bottom: 1.5rem;
+}
+
+
+.faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.faq-item {
+  border-radius: 8px;
+  background: #f8f6fc;
+  border: 1px solid #c9bde2;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  padding: 1rem 1.2rem;
+  transition: box-shadow 0.3s ease;
+}
+
+.faq-item:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+}
+
+.faq-question {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: bold;
+  font-size: 1.1em;
+  color: #3d3370;
+  cursor: pointer;
+}
+
+
+.faq-toggle {
+  font-size: 1.4em;
+  font-weight: bold;
+  color: #7e70a1;
+  float: right;
+  cursor: pointer;
+}
+
+.faq-answer {
+  max-height: 0px;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+
+.faq-answer {
+  background-color: #fff;
+  margin-top: 0.7rem;
+  padding: 0 1rem;
+  border-left: 4px solid #b8acd9;
+  border-radius: 4px;
+  font-size: 0.95em;
+  line-height: 1.6;
+  color: #4b4b4b;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.faq-item.active .faq-answer {
+  max-height: 500px;
+  /* 根據內容調整 */
+  padding: 0.7rem 1rem;
+  /* 回復內距 */
+}
+
+.section-divider {
+  margin: 3rem 0 2rem;
+  border: none;
+  border-top: 2px dashed #c2b6dc;
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.contact-section {
+  background-color: #f4f1f9;
+  padding: 2rem 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+}
+
+.contact-title {
+  text-align: center;
+  color: #3d3370;
+  font-size: 1.6em;
+  margin-bottom: 1rem;
+}
+
+.contact-button {
+  background: #b8acd9;
+  color: white;
+  border: none;
+  padding: 0.7rem 1.5rem;
+  font-size: 1.1em;
+  border-radius: 2rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.contact-info {
+  margin-top: 1rem;
+  font-size: 0.95em;
+  color: #333;
+}
+
+.contact-info a {
+  color: #3d3370;
+  text-decoration: underline;
+}

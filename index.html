@@ -1,0 +1,1012 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+  <meta charset="UTF-8">
+  <title>元智大學二手書交易平台</title>
+  <link rel="stylesheet" href="./index.css">
+
+</head>
+
+<body>
+  <div class="navbar">
+    <div class="nav-item active" data-page="home">首頁</div>
+    <div class="nav-item" data-page="category">書籍分類</div>
+    <div class="nav-item" data-page="member">會員中心</div>
+    <div class="nav-item" data-page="upload">我要上架</div>
+    <div class="nav-item" data-page="gossip">八卦牆</div>
+
+    <!-- 右側 icon 分頁 -->
+    <div class="icons">
+      <div class="nav-item" data-page="cart">
+        <img class="icon" src="./shopcar_icon.png" alt="購物車">
+      </div>
+      <div class="nav-item" data-page="message">
+        <img class="icon" src="./chat_icon.png" alt="訊息中心">
+      </div>
+      <div class="nav-item" data-page="support">
+        <img class="icon" src="./question_icon.png" alt="客服頁">
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <!-- 首頁 -->
+    <div id="page-home" style="position: relative;">
+      <div style="position: relative; z-index: 1;">
+        <img src="./logo.jpg" alt="Logo" style="width:300px;display:block;margin:0 auto 30px;">
+        <h2 style="text-align:center;">元智大學校內學生二手書交易平台</h2>
+        <p style="text-align:center;">歡迎來到元智大學二手書交易平台，您可以在這裡買賣課本、參考書，或在八卦牆留言互動！</p>
+      </div>
+    </div>
+    <!-- 書籍分類 -->
+    <div id="page-category" class="hidden">
+      <h2 style="text-align:center;">科系分類</h2>
+      <div class="search-bar" style="text-align:center;">
+        <input type="text" id="category-search" placeholder="搜尋科系...">
+        <button onclick="searchCategory()">搜尋</button>
+      </div>
+      <div class="category-list" id="category-list">
+        <div class="category-item" onclick="showBooks('機械工程學系')">機械工程學系</div>
+        <div class="category-item" onclick="showBooks('化學工程與材料科學學系')">化學工程與材料科學學系</div>
+        <div class="category-item" onclick="showBooks('工業工程與管理學系')">工業工程與管理學系</div>
+        <div class="category-item" onclick="showBooks('資訊工程學系')">資訊工程學系</div>
+        <div class="category-item" onclick="showBooks('資訊管理學系')">資訊管理學系</div>
+        <div class="category-item" onclick="showBooks('資訊傳播學系')">資訊傳播學系</div>
+        <div class="category-item" onclick="showBooks('應用外語學系')">應用外語學系</div>
+        <div class="category-item" onclick="showBooks('中國語文學系')">中國語文學系</div>
+        <div class="category-item" onclick="showBooks('社會暨政策科學學系')">社會暨政策科學學系</div>
+        <div class="category-item" onclick="showBooks('藝術與設計系')">藝術與設計系</div>
+        <div class="category-item" onclick="showBooks('電機工程學系')">電機工程學系</div>
+        <div class="category-item" onclick="showBooks('護理學系')">護理學系</div>
+        <div class="category-item" onclick="showBooks('通識')">通識</div>
+        <div class="category-item" onclick="showBooks('國文')">國文</div>
+        <div class="category-item" onclick="showBooks('英文/其他外語')">英文/其他外語</div>
+      </div>
+      <div id="books-display" class="books-display" style="display: none;">
+        <h3 id="selected-category"></h3>
+        <div id="books-list" class="books-list"></div>
+      </div>
+    </div>
+    
+    <!-- 會員中心頁 -->
+    <div id="page-member" class="hidden">
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 30px;">
+        <div style="flex: 1;">
+          <h2>會員中心</h2>
+          <form class="login-form" onsubmit="handleLogin(event)" style="max-width: 400px; text-align: left;">
+            <label style="display: block; margin-bottom: 15px;">帳號
+              <input type="text" id="login-username" required style="width: 200px; padding: 5px;">
+            </label>
+            <label style="display: block; margin-bottom: 15px;">密碼
+              <input type="password" id="login-password" required style="width: 200px; padding: 5px;">
+            </label>
+            <div id="login-error" style="color: red; margin-bottom: 10px; display: none;">帳號或密碼錯誤</div>
+            <button type="submit"
+              style="padding: 8px 20px; background-color: #3d3370; color: white; border: none; border-radius: 4px; cursor: pointer;">會員登入</button>
+          </form>
+        </div>
+        <div style="margin-left: 50px;">
+          <img src="./logo.jpg" alt="Logo" style="width:300px;">
+        </div>
+      </div>
+    </div>
+    <div id="member-center">
+      <!-- tab 導覽與 tab-content -->
+
+
+
+      <div class="tabs">
+        <button class="tab active" onclick="showTab('profile')">基本資料</button>
+        <button class="tab" onclick="showTab('selling')">我的賣出</button>
+        <button class="tab" onclick="showTab('orders')">我的訂單</button>
+      </div>
+
+      <!-- 基本資料 -->
+      <div id="profile" class="tab-content active">
+        <div class="profile-form">
+          <div class="avatar"></div>
+          <div>
+            <label>姓名</label><input type="text">
+            <label>科系</label><input type="text">
+            <label>常用電子信箱</label><input type="email">
+            <label>行動電話</label><input type="text">
+            <label>地址</label><input type="text">
+          </div>
+        </div>
+      </div>
+
+      <!-- 我的賣出 -->
+      <div id="selling" class="tab-content">
+        <div class="book-list">
+          <!-- 賣出紀錄 -->
+          <div class="book-row">
+            <input type="file" accept="image/*" onchange="previewImage(this)">
+            <div class="book-info">
+              <label>書名</label><input type="text">
+              <label>價格</label><input type="text">
+              <p class="status">已上架</p>
+            </div>
+          </div>
+          <!-- 可重複 -->
+        </div>
+      </div>
+
+      <!-- 我的訂單 -->
+      <div id="orders" class="tab-content">
+        <div class="book-list">
+          <div class="book-row">
+            <input type="file" accept="image/*" onchange="previewImage(this)">
+            <div class="book-info">
+              <label>書名</label><input type="text">
+              <label>價格</label><input type="text">
+              <p class="status">待出貨</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+
+    <!-- 我要上架 -->
+    <div id="page-upload" class="hidden">
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 30px;">
+        <div style="flex: 1;">
+          <h2>我要上架</h2>
+          <form id="upload-form" onsubmit="handleBookUpload(event)">
+            <label>書名：<input type="text" id="book-name" required></label><br><br>
+            <label>價格：<input type="number" id="book-price" required></label><br><br>
+            <label>商品圖片：<input type="file" id="book-image" accept="image/*" required></label><br><br>
+            <label>科系：
+              <select id="book-department" required>
+                <option>機械工程學系</option>
+                <option>化學工程與材料科學學系</option>
+                <option>工業工程與管理學系</option>
+                <option>資訊工程學系</option>
+                <option>資訊管理學系</option>
+                <option>資訊傳播學系</option>
+                <option>應用外語學系</option>
+                <option>中國語文學系</option>
+                <option>社會暨政策科學學系</option>
+                <option>藝術與設計系</option>
+                <option>電機工程學系</option>
+                <option>護理學系</option>
+                <option>通識</option>
+                <option>國文</option>
+                <option>英文/其他外語</option>
+              </select>
+            </label><br><br>
+            <button type="submit">送出</button>
+          </form>
+        </div>
+        <div style="margin-left: 50px;">
+          <img src="./logo.jpg" alt="Logo" style="width:300px;">
+        </div>
+      </div>
+    </div>
+    <!-- 八卦牆 -->
+    <div id="page-gossip" class="hidden">
+      <h2>八卦牆</h2>
+      <div class="gossip-list" id="gossip-list">
+
+      </div>
+      <div class="gossip-input">
+        <input type="text" id="gossip-input" placeholder="說些什麼吧">
+        <button onclick="addGossip()">發送</button>
+      </div>
+    </div>
+
+    <!-- 購物車 -->
+    <div id="page-cart" class="hidden">
+
+    </div>
+
+    <!-- 訊息中心 -->
+    <div id="page-message" class="hidden">
+      <div class="message-list">
+        <div class="no-messages-placeholder">暫無聊天內容</div>
+      </div>
+
+      <!-- 聊天視窗樣板 -->
+      <template id="chat-template">
+        <div class="chat-panel">
+          <div class="chat-header">
+            <div class="chat-user">
+              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
+                fill="#a29bcb">
+                <path
+                  d="M234-276q51-39 114-61.5T480-360q69 0 132 22.5T726-276q35-41 54.5-93T800-480q0-133-93.5-226.5T480-800q-133 0-226.5 93.5T160-480q0 59 19.5 111t54.5 93Zm246-164q-59 0-99.5-40.5T340-580q0-59 40.5-99.5T480-720q59 0 99.5 40.5T620-580q0 59-40.5 99.5T480-440Zm0 360q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Z" />
+              </svg>
+            </div>
+
+          </div>
+          <div class="chat-body">
+            <div class="bubble left">您好，請問需要什麼書？</div>
+          </div>
+          <div class="chat-input">
+            <button onclick="this.parentElement.querySelector('input[type=file]').click()">＋</button>
+            <input type="text" placeholder="輸入訊息..." class="chat-input-box">
+            <button class="send-message-button" onclick="sendMessage(this)">
+              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
+                fill="#1f1f1f">
+                <path d="M120-160v-640l760 320-760 320Zm80-120 474-200-474-200v140l240 60-240 60v140Zm0 0v-400 400Z" />
+              </svg>
+            </button>
+            <input type="file" accept="image/*" class="image-upload hidden" onchange="sendImage(event)">
+          </div>
+        </div>
+      </template>
+
+      <input type="file" accept="image/*" id="image-upload" style="display:none" onchange="sendImage(event)">
+    </div>
+
+
+    <!-- 客服頁 -->
+    <div id="page-support" class="hidden">
+
+      <h2 class="faq-title">常見問題</h2>
+
+      <div class="faq-list">
+        <div class="faq-item">
+          <div class="faq-question">怎麼賣書？ <span class="faq-toggle">+</span></div>
+          <div class="faq-answer">您可以透過上架頁面填寫書籍資訊並提交。</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">怎麼買書？ <span class="faq-toggle">+</span></div>
+          <div class="faq-answer">在分類中選購書籍並聯絡賣家，完成交易。</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">安全交易建議 <span class="faq-toggle">+</span></div>
+          <div class="faq-answer">建議當面交易，或透過學校平台確認身分。</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">是否支持校內交易？郵寄怎麼處理？ <span class="faq-toggle">+</span></div>
+          <div class="faq-answer">目前優先建議校內當面交易，郵寄請雙方自行協調。</div>
+        </div>
+      </div>
+
+      <hr class="section-divider">
+      <div class="contact-section">
+        <h2 class="contact-title">聯絡我們</h2>
+        <div class="contact-us">
+
+          <div class="contact-info">
+            <p> 聯絡信箱：yzubooktrade@gmail.com</p>
+            <p> 問題回報表單：<a
+                href="https://docs.google.com/forms/d/e/1FAIpQLSfb0wHctFaXvncPZhL6c6SQIqUDvfTMTNOhtlj7itwnEQUG0Q/viewform?usp=dialog"
+                target="_blank">立即回報（Google 表單）</a></p>
+            <p> 回應時間：一般 1~2 個工作天</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <script>    // 分頁切換
+      const navItems = document.querySelectorAll('.nav-item');
+      const pages = ['home', 'category', 'member', 'upload', 'gossip', 'cart', 'message', 'support'];
+      let isLoggedIn = false;
+
+      navItems.forEach(item => {
+        item.onclick = () => {
+          cleanupTimers();
+
+          const pageKey = item.dataset.page;
+
+          navItems.forEach(i => i.classList.remove('active'));
+          item.classList.add('active');
+
+          // 隱藏所有主要頁面（不包含 member-center）
+          pages.forEach(p => {
+            const page = document.getElementById('page-' + p);
+            if (page) page.classList.add('hidden');
+          });
+
+          // 特別處理會員中心
+          if (pageKey === 'member') {
+            if (isLoggedIn) {
+              document.getElementById('member-center').style.display = 'block';
+            } else {
+              document.getElementById('page-member').classList.remove('hidden');
+              document.getElementById('member-center').style.display = 'none';
+            }
+          } else {
+            // 顯示其他頁面
+            document.getElementById('page-' + pageKey)?.classList.remove('hidden');
+            // 如果不是會員頁，就隱藏 member center
+            document.getElementById('member-center').style.display = 'none';
+          }
+
+          if (pageKey === "cart") {
+            showCartPage();
+          }
+
+          if (pageKey === "support") {
+            setupFaqToggles();
+          }
+        };
+      });
+
+
+      // 書籍分類搜尋
+      function searchCategory() {
+        const keyword = document.getElementById('category-search').value.trim();
+        const items = document.querySelectorAll('.category-item');
+        items.forEach(item => {
+          if (!keyword || item.textContent.includes(keyword)) {
+            item.style.display = '';
+          } else {
+            item.style.display = 'none';
+          }
+        });
+      }
+
+      // 八卦牆留言
+      function addGossip() {
+        const input = document.getElementById('gossip-input');
+        const text = input.value.trim();
+        if (text) {
+          const timestamp = Date.now();
+          const div = document.createElement('div');
+          div.className = 'gossip-item';
+          div.dataset.timestamp = timestamp;
+          div.innerHTML = `
+          <div class="gossip-content">${text}</div>
+          <div class="gossip-time">剩餘時間: 24:00:00</div>
+          <div class="gossip-actions">
+            <button class="like-button" onclick="toggleLike(this)">
+              <span class="like-icon">❤️</span>
+              <span class="like-count">0</span>
+            </button>
+            <div class="emoji-reactions">
+              <button class="emoji-button" onclick="addReaction(this, '👍')">👍</button>
+              <button class="emoji-button" onclick="addReaction(this, '😂')">😂</button>
+              <button class="emoji-button" onclick="addReaction(this, '😮')">😮</button>
+              <button class="emoji-button" onclick="addReaction(this, '😢')">😢</button>
+            </div>
+          </div>
+        `;
+          document.getElementById('gossip-list').prepend(div);
+          input.value = '';
+
+          // 開始倒數計時
+          startCountdown(div, timestamp);
+        }
+      }
+
+      // 倒數計時功能
+      function startCountdown(element, timestamp) {
+        const updateTimer = () => {
+          const now = Date.now();
+          const elapsed = now - timestamp;
+          const remaining = 24 * 60 * 60 * 1000 - elapsed; // 24小時的毫秒數
+
+          if (remaining <= 0) {
+            // 添加淡出效果
+            element.classList.add('fade-out');
+            // 等待淡出動畫完成後刪除元素
+            setTimeout(() => {
+              element.remove();
+              // 清理計時器
+              if (element.dataset.timerId) {
+                clearInterval(parseInt(element.dataset.timerId));
+              }
+            }, 500); // 500ms 是淡出動畫的持續時間
+            return;
+          }
+
+          // 計算剩餘時間
+          const hours = Math.floor(remaining / (60 * 60 * 1000));
+          const minutes = Math.floor((remaining % (60 * 60 * 1000)) / (60 * 1000));
+          const seconds = Math.floor((remaining % (60 * 1000)) / 1000);
+
+          // 更新顯示時間
+          const timeDisplay = element.querySelector('.gossip-time');
+          timeDisplay.textContent = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+
+          // 如果剩餘時間少於1小時，添加警告樣式
+          if (remaining < 60 * 60 * 1000) {
+            element.classList.add('expiring');
+          }
+        };
+
+        // 每秒更新一次
+        const timer = setInterval(updateTimer, 1000);
+        updateTimer(); // 立即執行一次
+
+        // 儲存計時器ID以便清理
+        element.dataset.timerId = timer;
+      }
+
+      // 清理計時器
+      function cleanupTimers() {
+        const elements = document.querySelectorAll('.gossip-item');
+        elements.forEach(element => {
+          if (element.dataset.timerId) {
+            clearInterval(parseInt(element.dataset.timerId));
+          }
+        });
+      }
+
+      // 按讚功能
+      function toggleLike(button) {
+        const likeCount = button.querySelector('.like-count');
+        const currentCount = parseInt(likeCount.textContent);
+
+        if (button.classList.contains('liked')) {
+          likeCount.textContent = currentCount - 1;
+          button.classList.remove('liked');
+        } else {
+          likeCount.textContent = currentCount + 1;
+          button.classList.add('liked');
+        }
+      }
+
+      // 表情符號反應
+      function addReaction(button, emoji) {
+        const reactionCount = button.querySelector('.reaction-count') ||
+          (() => {
+            const span = document.createElement('span');
+            span.className = 'reaction-count';
+            button.appendChild(span);
+            return span;
+          })();
+
+        const currentCount = parseInt(reactionCount.textContent || '0');
+        reactionCount.textContent = currentCount + 1;
+      }
+
+      // 儲存上架的書籍
+      let uploadedBooks = [];
+
+      // 處理書籍上架
+      function handleBookUpload(event) {
+        event.preventDefault();
+
+        const bookName = document.getElementById('book-name').value;
+        const bookPrice = document.getElementById('book-price').value;
+        const bookDepartment = document.getElementById('book-department').value;
+        const bookImage = document.getElementById('book-image').files[0];
+
+        if (bookImage) {
+          const reader = new FileReader();
+          reader.onload = function (e) {
+            const book = {
+              name: bookName,
+              price: bookPrice,
+              department: bookDepartment,
+              image: e.target.result,
+              id: Date.now(), // 使用時間戳作為唯一ID
+              likes: 0 // 新增按讚計數
+            };
+
+            uploadedBooks.push(book);
+            alert('上架成功！');
+            event.target.reset();
+
+            // 切換到書籍分類頁面
+            document.querySelector('.nav-item[data-page="category"]').click();
+            showBooks(bookDepartment);
+          };
+          reader.readAsDataURL(bookImage);
+        }
+      }
+
+      // 顯示特定科系的書籍
+      function showBooks(department) {
+        const booksDisplay = document.getElementById('books-display');
+        const selectedCategory = document.getElementById('selected-category');
+        const booksList = document.getElementById('books-list');
+
+        booksDisplay.style.display = 'block';
+        selectedCategory.textContent = department;
+        booksList.innerHTML = '';
+
+        const departmentBooks = uploadedBooks.filter(book => book.department === department);
+
+        if (departmentBooks.length === 0) {
+          booksList.innerHTML = '<p>目前沒有上架的書籍</p>';
+          return;
+        }
+
+        departmentBooks.forEach(book => {
+          const bookElement = document.createElement('div');
+          bookElement.className = 'book-item';
+          bookElement.innerHTML = `
+            <img src="${book.image}" alt="${book.name}" style="width: 150px; height: 150px; object-fit: cover;">
+            <h4>${book.name}</h4>
+            <p>價格: ${book.price} 元</p>
+            <div class="book-actions">
+              <button class="book-like-button" onclick="toggleBookLike(${book.id})" data-book-id="${book.id}">
+                <span class="like-icon">❤️</span>
+                <span class="like-count">${book.likes}</span>
+              </button>
+              
+              <button class="book-message-button" onclick="messageSeller(${book.id})">💬</button>
+
+              <button class="book-cart-button" onclick="addToCart(${book.id})">
+                <span class="cart-icon">🛒</span>
+              </button>
+            </div>
+          `;
+
+          booksList.appendChild(bookElement);
+        });
+      }
+      // 書籍按讚功能
+      function toggleBookLike(bookId) {
+        const book = uploadedBooks.find(b => b.id === bookId);
+        if (book) {
+          book.likes = (book.likes || 0) + 1;
+          // 更新按讚按鈕顯示
+          const likeButton = document.querySelector(`.book-like-button[data-book-id="${bookId}"]`);
+          if (likeButton) {
+            const likeCount = likeButton.querySelector('.like-count');
+            likeCount.textContent = book.likes;
+            likeButton.classList.add('liked');
+          }
+        }
+      }
+
+      // 添加書籍按讚按鈕樣式
+      const style = document.createElement('style');
+      style.textContent = `
+        }
+            .book-item {
+              border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            background: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: relative;
+      }
+
+            .book-like-button {
+              display: flex;
+            align-items: center;
+            gap: 5px;
+            margin: 10px auto;
+            padding: 5px 15px;
+            border: none;
+            background: none;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.2s;
+      }
+
+            .book-like-button:hover {
+              background - color: #f0f0f0;
+      }
+
+            .book-like-button.liked {
+              color: #e74c3c;
+      }
+
+            .book-like-button .like-count {
+              font - size: 0.9em;
+            color: inherit;
+      }
+            `;
+
+      // 購物車
+      let cartItems = [];
+
+      function addToCart(bookId) {
+        const book = uploadedBooks.find(b => b.id === bookId);
+        if (book && !cartItems.includes(book)) {
+          cartItems.push(book);
+          alert(`已加入購物車：${book.name}`);
+          showCartPage();
+        }
+      }
+      function removeFromCart(index) {
+        cartItems.splice(index, 1);
+        showCartPage();
+      }
+
+      function showCartPage() {
+        const cartPage = document.getElementById('page-cart');
+
+        let total = 0;
+
+        const html = cartItems.map((book, index) => {
+          return `
+            <div class="cart-item">
+              <input type="checkbox" class="cart-check" onchange="updateTotal()" data-index="${index}" checked>
+                <img src="${book.image}" class="cart-image">
+                  <div class="cart-info">
+                    <div class="cart-title">${book.name}</div>
+                    <div class="cart-price">NT ${book.price}</div>
+                  </div>
+                  <button class="remove-btn" onclick="removeFromCart(${index})">✕</button>
+                </div>
+                `;
+        }).join('');
+
+        cartPage.innerHTML = `
+                <div class="cart-grid">
+                  <div class="cart-left">
+                    ${html}
+                  </div>
+                  <div class="cart-right">
+                    <label>配送方式
+                      <select id="shipping-method">
+                        <option value="personally">面交</option>
+                        <option value="store">超商取貨</option>
+                        <option value="post">郵寄</option>
+                        <option value="home">宅配</option>
+                      </select>
+                    </label><br>
+                      <label>收件地址
+                        <input type="text" id="shipping-address" placeholder="請輸入地址">
+                      </label><br>
+                        <label>付款方式
+                          <select id="payment-method">
+                            <option value="cash">現金</option>
+                            <option value="credit">信用卡</option>
+                            <option value="cash on delivery">貨到付款</option>
+                          </select>
+                        </label><br>
+                          <div class="total-amount">總金額 <span id="cart-total">0</span> NT</div>
+                          <button class="checkout-btn" onclick="checkout()">結帳</button>
+                        </div>
+                      </div>
+                      `;
+
+        updateTotal(); // 初始化總金額
+      }
+
+      function updateTotal() {
+        const checks = document.querySelectorAll('.cart-check');
+        let sum = 0;
+
+        checks.forEach(check => {
+          if (check.checked) {
+            const index = check.dataset.index;
+            sum += parseInt(cartItems[index].price);
+          }
+        });
+
+        document.getElementById('cart-total').textContent = sum;
+      }
+
+      function checkout() {
+        const checkedItems = [...document.querySelectorAll('.cart-check')]
+          .filter(c => c.checked)
+          .map(c => cartItems[c.dataset.index]);
+
+        const address = document.getElementById('shipping-address').value.trim();
+        const method = document.getElementById('shipping-method').value;
+        const payment = document.getElementById('payment-method').value;
+
+        if (checkedItems.length === 0) {
+          alert('請至少選擇一項商品');
+          return;
+        }
+        if (!address) {
+          alert('請輸入收件地址');
+          return;
+        }
+
+        alert(`✅ 訂單已提交，共 ${checkedItems.length} 件，付款方式：${payment}，配送方式：${method}`);
+        // TODO: 真正送出訂單可透過 fetch() 或後端連線
+      }
+
+
+
+
+
+
+
+
+
+      document.head.appendChild(style);
+
+
+      // 聊天功能
+      // 點擊開始聊天
+      // 儲存所有聊天室實例
+      const chatPanels = {};
+
+      function toggleChat(event) {
+        event.stopPropagation();
+        const clickedButton = event.currentTarget;
+        const messageItem = clickedButton.closest('.message-item');
+        const userId = messageItem.dataset.userId;
+
+        // 若已存在該使用者聊天室就顯示
+        if (chatPanels[userId]) {
+          chatPanels[userId].style.display = 'flex';
+        } else {
+          // 建立新聊天室
+          const tpl = document.getElementById('chat-template').content.cloneNode(true);
+          const panel = tpl.querySelector('.chat-panel');
+
+          const inputBox = panel.querySelector('.chat-input-box');
+          inputBox.id = `chat-input-${userId}`; // 每人聊天室輸入框不同 ID
+
+          // 定位：貼齊 messageItem 右邊
+          const rect = messageItem.getBoundingClientRect();
+          const panelWidth = 320;
+          let left = rect.right + 10;
+
+          if (left + panelWidth > window.innerWidth - 10) {
+            left = window.innerWidth - panelWidth - 10;
+          }
+
+          panel.style.position = 'fixed';
+          panel.style.top = `${rect.top}px`;
+          panel.style.left = `${left}px`;
+
+          // 儲存並加入頁面
+          chatPanels[userId] = panel;
+          document.body.appendChild(panel);
+        }
+
+        // 按鈕切換
+        const dots = messageItem.querySelector('.dots');
+        const closeBtn = messageItem.querySelector('.chat-close');
+        if (dots) dots.classList.add('hidden');
+        if (closeBtn) closeBtn.classList.remove('hidden');
+
+
+
+      }
+
+      function closeChat(closeBtn) {
+        const messageItem = closeBtn.closest('.message-item');
+        const userId = messageItem.dataset.userId;
+
+        if (chatPanels[userId]) {
+          chatPanels[userId].style.display = 'none';
+        }
+
+        const dots = messageItem.querySelector('.dots');
+        const chatClose = messageItem.querySelector('.chat-close');
+        if (dots) dots.classList.remove('hidden');
+        if (chatClose) chatClose.classList.add('hidden');
+      }
+
+
+
+      // 切換 ••• 選單
+      function toggleDotsMenu(event, dotsElement) {
+        event.stopPropagation();
+
+        // 正確取得 .dots-menu（跳過中間的 chat-close）
+        const messageItem = dotsElement.closest('.message-item');
+        const menu = messageItem.querySelector('.dots-menu');
+
+        menu.classList.toggle('hidden');
+
+        // 關掉其他選單
+        document.querySelectorAll('.dots-menu').forEach(other => {
+          if (other !== menu) other.classList.add('hidden');
+        });
+      }
+
+      function toggleNotification(menuItem) {
+        const messageItem = menuItem.closest('.message-item');
+        const userId = messageItem.dataset.userId;
+        const isNotifying = messageItem.dataset.notify === 'on';
+
+        if (isNotifying) {
+          // 目前已開啟通知 → 要關閉
+          messageItem.dataset.notify = 'off';
+          menuItem.textContent = '開啟提醒通知';
+          alert(`🔕 已關閉 ${userId} 的提醒`);
+        } else {
+          // 目前關閉 → 要開啟
+          messageItem.dataset.notify = 'on';
+          menuItem.textContent = '關閉提醒通知';
+          alert(`🔔 已開啟 ${userId} 的提醒`);
+        }
+      }
+
+      // 儲存狀態
+      localStorage.setItem(`notify_${userId}`, 'on');
+      // 讀取狀態
+      const notify = localStorage.getItem(`notify_${userId}`);
+
+
+      // 點擊頁面其他地方時關閉 dots-menu
+      document.addEventListener("click", () => {
+        document.querySelectorAll('.dots-menu').forEach(menu => {
+          menu.classList.add('hidden');
+        });
+      });
+
+      // 傳送訊息
+      function sendMessage(button) {
+        const chatInput = button.parentElement.querySelector('.chat-input-box');
+        const msg = chatInput.value.trim();
+        if (!msg) return;
+
+        const chatBody = button.closest('.chat-panel').querySelector('.chat-body');
+        const bubble = document.createElement('div');
+        bubble.className = 'bubble right';
+        bubble.textContent = msg;
+        chatBody.appendChild(bubble);
+        chatInput.value = '';
+        chatBody.scrollTop = chatBody.scrollHeight;
+      }
+
+      // 傳送圖片
+      function sendImage(event) {
+        const file = event.target.files[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          const chatBody = event.target.closest('.chat-panel').querySelector('.chat-body');
+          const bubble = document.createElement('div');
+          bubble.className = 'bubble right';
+          bubble.innerHTML = `<img src="${e.target.result}" alt="uploaded image">`;
+          chatBody.appendChild(bubble);
+          chatBody.scrollTop = chatBody.scrollHeight;
+        };
+        reader.readAsDataURL(file);
+      }
+
+
+
+
+      // 常見問題FAQ toggle
+      function setupFaqToggles() {
+        document.querySelectorAll(".faq-question").forEach(q => {
+          q.addEventListener("click", () => {
+            const item = q.closest('.faq-item');
+            const answer = item.querySelector(".faq-answer");
+            const icon = q.querySelector(".faq-toggle");
+
+            if (item.classList.contains("active")) {
+              answer.style.maxHeight = "0px";
+              item.classList.remove("active");
+              icon.textContent = "+";
+            } else {
+              document.querySelectorAll(".faq-item.active").forEach(openItem => {
+                openItem.classList.remove("active");
+                openItem.querySelector(".faq-answer").style.maxHeight = "0px";
+                openItem.querySelector(".faq-toggle").textContent = "+";
+              });
+
+              item.classList.add("active");
+              answer.style.maxHeight = answer.scrollHeight + "px";
+              icon.textContent = "−";
+            }
+          });
+        });
+      }
+
+
+
+      // 登入功能
+
+      function handleLogin(event) {
+        event.preventDefault();
+        const username = document.getElementById('login-username').value.trim();
+        const password = document.getElementById('login-password').value.trim();
+        const errorMessage = document.getElementById('login-error');
+
+        if (username === '123456' && password === '123456') {
+          errorMessage.style.display = 'none';
+
+          // ✅ 設定登入狀態
+          let isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+
+          isLoggedIn = true;
+          localStorage.setItem("isLoggedIn", "true");
+
+
+
+          // ✅ 隱藏所有主頁面
+          document.querySelectorAll('.container > div').forEach(div => div.classList.add('hidden'));
+
+          // ✅ 顯示會員中心
+          document.getElementById('member-center').style.display = 'block';
+
+          // ✅ 導航選中「會員中心」
+          document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+          document.querySelector('.nav-item[data-page="member"]').classList.add('active');
+        } else {
+          errorMessage.style.display = 'block';
+        }
+      }
+
+
+      function showTab(tabId) {
+        // 先將所有 tab-content 隱藏，所有 tab 取消 active
+        const tabs = document.querySelectorAll('.tab');
+        const contents = document.querySelectorAll('.tab-content');
+
+        tabs.forEach(tab => tab.classList.remove('active'));
+        contents.forEach(content => content.classList.remove('active'));
+
+        // 顯示點擊的 tab
+        document.querySelector(`[onclick="showTab('${tabId}')"]`).classList.add('active');
+        document.getElementById(tabId).classList.add('active');
+      }
+
+      function messageSeller(bookId) {
+
+        const messageList = document.querySelector('.message-list');
+
+        // ✅ 移除「暫無聊天內容」提示
+        const placeholder = messageList.querySelector('.no-messages-placeholder');
+        if (placeholder) placeholder.remove();
+        const book = uploadedBooks.find(b => b.id === bookId);
+        if (!book) return;
+
+        const fakeSellerId = `seller_${book.id}`;
+        const sellerName = book.sellerName || "賣家A";
+
+        // 檢查聊天室有無該賣家
+        let existing = document.querySelector(`.message-item[data-user-id='${fakeSellerId}']`);
+        if (!existing) {
+          const messageList = document.querySelector('.message-list');
+          const div = document.createElement('div');
+          div.className = 'message-item';
+          div.dataset.userId = fakeSellerId;
+          div.innerHTML = `
+            <div class="avatar"></div>
+            <button class="chat-button" onclick="toggleChat(event)">點擊開始聊天</button>
+
+            <div class="dots" onclick="toggleDotsMenu(event, this)">•••</div>
+            <div class="chat-close hidden" onclick="closeChat(this)">&#62;</div>
+
+            <div class="dots-menu hidden">
+              <div class="menu-item" onclick="toggleNotification(this)">開啟提醒通知</div>
+            </div>
+          `;
+
+          messageList.appendChild(div);
+        }
+
+        // 跳轉到訊息中心
+        document.querySelector(`.nav-item[data-page="message"]`).click();
+
+        // 自動展開聊天室
+        const messageItem = document.querySelector(`.message-item[data-user-id='${fakeSellerId}']`);
+        const chatBtn = messageItem?.querySelector('.chat-button');
+        chatBtn?.click();
+
+        // ✅ 顯示書名與封面
+        const panel = chatPanels[fakeSellerId];
+        const chatBody = panel.querySelector('.chat-body');
+        if (chatBody && !chatBody.dataset.introAdded) {
+          const intro = document.createElement('div');
+          intro.className = 'bubble left';
+          intro.innerHTML = `
+          <div><strong>這是您想買的的書嗎?</strong></div>
+          <div>${book.name}</div>
+          <img src="${book.image}" style="max-width: 100px; border-radius: 4px; margin-top: 5px;">
+        `;
+          chatBody.appendChild(intro);
+          chatBody.dataset.introAdded = "true";
+        }
+
+        // ✅ 儲存對話初始化記錄
+        const historyKey = `chat_${fakeSellerId}`;
+        if (!localStorage.getItem(historyKey)) {
+          const initial = [{
+            type: "left",
+            content: `您好，請問這本《${book.name}》還有嗎？`
+          }];
+          localStorage.setItem(historyKey, JSON.stringify(initial));
+        }
+      }
+
+
+
+
+      // 初始載入首頁
+      document.querySelector('.nav-item.active').click();
+
+
+    </script>
+
+</body>
+
+</html>
