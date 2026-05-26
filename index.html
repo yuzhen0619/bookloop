@@ -13,9 +13,57 @@
     <div class="nav-item" data-page="member">會員中心</div>
     <div class="nav-item" data-page="upload">我要上架</div>
     <div class="nav-item" data-page="gossip">八卦牆</div>
-    <div class="nav-item" data-page="cart">購物車</div>
-    <div class="nav-item" data-page="chat">聊天室</div>
-    <div class="nav-item" data-page="help">幫助中心</div>
+
+    <!-- 右側 icon 分頁 -->
+    <div class="icons">
+      <!-- 購物車按鈕 -->
+      <div class="nav-item" data-page="cart" id="cart-nav-btn" style="position: relative; display: inline-block;">
+        <img class="icon" src="./shopcar_icon.png" alt="購物車" style="display: block;">
+        <span class="cart-badge" id="cart-badge" style="
+          display: none;
+          position: absolute;
+          bottom: -4px;
+          right: -4px;
+          background-color: #dc3545;
+          color: white;
+          border-radius: 50%;
+          width: 18px;
+          height: 18px;
+          font-size: 11px;
+          font-weight: bold;
+          text-align: center;
+          line-height: 18px;
+          box-sizing: border-box;
+          box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        ">0</span>
+      </div>
+
+      <!-- 訊息中心按鈕（加入正圓形未讀紅點） -->
+      <div class="nav-item" data-page="chat" id="chat-nav-btn" style="position: relative; display: inline-block;">
+        <img class="icon" src="./chat_icon.png" alt="訊息中心" style="display: block;">
+        <span class="chat-badge" id="chat-badge" style="
+          display: none;
+          position: absolute;
+          bottom: -4px;
+          right: -4px;
+          background-color: #dc3545;
+          color: white;
+          border-radius: 50%;
+          width: 18px;
+          height: 18px;
+          font-size: 11px;
+          font-weight: bold;
+          text-align: center;
+          line-height: 18px;
+          box-sizing: border-box;
+          box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        ">0</span>
+      </div>
+
+      <div class="nav-item" data-page="help">
+        <img class="icon" src="./question_icon.png" alt="客服頁">
+      </div>
+    </div>
   </div>
   <div class="container">
    
@@ -79,9 +127,14 @@
           <!-- 登入表單 -->
           <div id="login-section">
             <form class="login-form" onsubmit="handleLogin(event)" style="max-width: 400px; text-align: left;">
-              <label style="display: block; margin-bottom: 15px;">帳號 <input type="text" id="login-username" required style="width: 200px; padding: 5px;"></label>
-              <label style="display: block; margin-bottom: 15px;">密碼 <input type="password" id="login-password" required style="width: 200px; padding: 5px;"></label>
-              <button type="submit" style="padding: 8px 20px; background-color: #3d3370; color: white; border: none; border-radius: 4px; cursor: pointer;">會員登入</button>
+              <label style="display: block; margin-bottom: 15px;">
+                帳號 <input type="text" id="login-username" placeholder="test" required style="width: 200px; padding: 5px; color: #333;">
+              </label>
+              <label style="display: block; margin-bottom: 15px;">
+                密碼 <input type="password" id="login-password" placeholder="test123" required style="width: 200px; padding: 5px; color: #333;">
+              </label>
+              
+              <button type="submit" style="padding: 12px 20px; background-color: #3d3370; color: white; border: none; border-radius: 4px; cursor: pointer;">會員登入</button>
             </form>
           </div>
           
@@ -139,12 +192,25 @@
       <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 30px;">
         <div style="flex: 1;">
           <h2>我要上架</h2>
-          <form id="upload-form" onsubmit="handleBookUpload(event)">
-            <label>書名：<input type="text" id="book-name" required></label><br><br>
-            <label>價格：<input type="number" id="book-price" required></label><br><br>
-            <label>商品圖片：<input type="file" id="book-image" accept="image/*" required></label><br><br>
-            <label>科系：
-              <select id="book-department" required>
+         <form id="upload-form" onsubmit="handleBookUpload(event)" style="max-width: 400px; text-align: left; margin-top: 30px;">
+            <div style="margin-bottom: 15px; display: flex; align-items: center;">
+              <label style="width: 90px; font-size: 1.1em; color: #333;">書名</label>
+              <input type="text" id="book-name" placeholder="請輸入書名" required style="width: 200px; padding: 5px; border: 1px solid #aaa; border-radius: 4px; box-sizing: border-box;">
+            </div>
+
+            <div style="margin-bottom: 15px; display: flex; align-items: center;">
+              <label style="width: 90px; font-size: 1.1em; color: #333;">價格</label>
+              <input type="number" id="book-price" placeholder="請輸入金額" required style="width: 200px; padding: 5px; border: 1px solid #aaa; border-radius: 4px; box-sizing: border-box;">
+            </div>
+
+            <div style="margin-bottom: 15px; display: flex; align-items: center;">
+              <label style="width: 90px; font-size: 1.1em; color: #333;">商品圖片</label>
+              <input type="file" id="book-image" accept="image/*" required style="width: 200px; padding: 3px; font-size: 0.9em; border: 1px solid #aaa; border-radius: 4px; background: white; box-sizing: border-box;">
+            </div>
+
+            <div style="margin-bottom: 25px; display: flex; align-items: center;">
+              <label style="width: 90px; font-size: 1.1em; color: #333;">科系分類</label>
+              <select id="book-department" required style="width: 200px; padding: 5px; border: 1px solid #aaa; border-radius: 4px; background: white; box-sizing: border-box; cursor: pointer;">
                 <option>機械工程學系</option>
                 <option>化學工程與材料科學學系</option>
                 <option>工業工程與管理學系</option>
@@ -161,8 +227,13 @@
                 <option>國文</option>
                 <option>英文/其他外語</option>
               </select>
-            </label><br><br>
-            <button type="submit">送出</button>
+            </div>
+
+            <div style="padding-left: 90px;">
+              <button type="submit" style="padding: 12px 20px; background-color: #3d3370; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 1em; font-weight: bold; transition: background 0.2s;" onmouseover="this.style.background='#2d2554'" onmouseout="this.style.background='#3d3370'">
+                送出上架
+              </button>
+            </div>
           </form>
         </div>
         <div style="margin-left: 50px;">
@@ -201,7 +272,7 @@
               <h3>總計: NT$ <span id="cart-total-amount">0</span></h3>
             </div>
             <div style="text-align: right;">
-              <button onclick="goToCheckout()" class="checkout-button" style="padding: 10px 20px; background-color: #28a745; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 1.1em;">前往結帳</button>
+              <button onclick="goToCheckout()" class="checkout-button" style="padding: 10px 20px; background-color: #5ab96e !important; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 1.1em;">前往結帳</button>
             </div>
           </div>
         </div>
@@ -251,7 +322,7 @@
           </div>
         </div>
         <div style="margin-left: 50px;">
-          <img src="./logo.jpg" alt="Logo" style="width:300px;">
+          <img src="./logo.jpg" alt="Logo" style="width:250px;">
         </div>
       </div>
     </div>
@@ -691,7 +762,7 @@
                     padding: 3px 8px;
                     border-radius: 12px;
                     font-size: 0.9em;
-                    background-color: ${transaction.status === '已完成' ? '#28a745' : '#ffc107'};
+                    background-color: ${transaction.status === '已完成' ? '#5ab96e' : '#ffc107'};
                     color: white;
                   ">${transaction.status}</span>
                 </div>
@@ -703,11 +774,11 @@
       }
     }
     
-    // 聊天室假資料
+    // 聊天室假資料（修改 unread 讓總和預設為 1）
     const chatContacts = [
-      { id: 'buyer1', name: '買家A', unread: 2 },
+      { id: 'buyer1', name: '買家A', unread: 1 }, // 改為 1
       { id: 'buyer2', name: '買家B', unread: 0 },
-      { id: 'seller1', name: '賣家C', unread: 1 },
+      { id: 'seller1', name: '賣家C', unread: 0 }, // 改為 0
       { id: 'seller2', name: '賣家D', unread: 0 }
     ];
     const chatHistory = {
@@ -765,6 +836,10 @@
       // 清除未讀
       const contact = chatContacts.find(c => c.id === contactId);
       if (contact) contact.unread = 0;
+      
+      // --- 補上這行，當點擊聯絡人時，同步更新上方導覽列的紅點數量 ---
+      updateChatBadge(); 
+      
       renderContacts();
       renderChat();
     }
@@ -982,12 +1057,34 @@
       showNotification('商品已從購物車移除');
     }
 
-    // 更新購物車按鈕
+    // 更新聊天室導覽列按鈕的紅點與未讀數量
+    function updateChatBadge() {
+      // 計算所有聯絡人的未讀訊息總和
+      const totalUnread = chatContacts.reduce((sum, contact) => sum + (contact.unread || 0), 0);
+      const badge = document.getElementById('chat-badge');
+      
+      if (badge) {
+        if (totalUnread > 0) {
+          badge.textContent = totalUnread;
+          badge.style.display = 'block'; // 有未讀訊息時顯示紅點
+        } else {
+          badge.style.display = 'none';  // 皆已讀時隱藏紅點
+        }
+      }
+    }
+
+    // 更新購物車按鈕的紅點與數量
     function updateCartButton() {
       const totalItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);
-      const cartButton = document.querySelector('.nav-item[data-page="cart"]');
-      if (cartButton) {
-        cartButton.innerHTML = `購物車${totalItems > 0 ? ` (${totalItems})` : ''}`;
+      const badge = document.getElementById('cart-badge');
+      
+      if (badge) {
+        if (totalItems > 0) {
+          badge.textContent = totalItems;
+          badge.style.display = 'block'; // 有商品時顯示紅點
+        } else {
+          badge.style.display = 'none';  // 沒商品時隱藏紅點
+        }
       }
     }
 
@@ -1064,6 +1161,8 @@
 
     // 將所有購物車相關函數暴露到全局作用域
     window.addToCart = addToCart;
+    // 網頁初始化時載入聊天室未讀紅點
+    updateChatBadge();
     window.updateQuantity = updateQuantity;
     window.removeFromCart = removeFromCart;
     window.goToCheckout = goToCheckout;
