@@ -4,6 +4,7 @@ body {
   background: #ede9e2;
 }
 
+/* 導覽列主體：確保內部元件垂直置中 */
 .navbar {
   background: #3d3370;
   color: #fff;
@@ -14,6 +15,7 @@ body {
   font-size: 1.2em;
 }
 
+/* 左側文字分頁項目 */
 .navbar .nav-item {
   position: relative;
   margin: 0 20px;
@@ -21,57 +23,61 @@ body {
   padding: 10px 0;
 }
 
+/* 文字分頁的底線動畫 */
 .navbar .nav-item::after {
   content: "";
   position: absolute;
   left: 0;
   bottom: 0;
-  /* 修正底線位置 */
   height: 3px;
   width: 0%;
   background-color: #fff;
   transition: width 0.3s ease-in-out;
 }
 
-
-.navbar .nav-item:hover::after {
-  width: 100%;
-}
-
+.navbar .nav-item:hover::after,
 .navbar .nav-item.active::after {
   width: 100%;
 }
 
+/* 右側 Icon 容器：徹底固定高度並垂直置中，防止紅點亂跑 */
 .navbar .icons {
   margin-left: auto;
   display: flex;
+  align-items: center; 
   gap: 20px;
+  height: 100%;       
 }
 
+/* 右側 Icon 專用的 nav-item 修正：強制固定寬高為 28px，讓紅點完美鎖定在右下角 */
+.navbar .icons .nav-item {
+  margin: 0 !important;
+  padding: 0 !important;
+  position: relative !important;
+  display: flex !important;       
+  align-items: center !important;
+  justify-content: center !important;
+  width: 28px !important;         
+  height: 28px !important;        
+}
+
+/* 移除右側 Icon 項目不需要的底線動畫 */
+.navbar .icons .nav-item::after {
+  display: none !important;
+}
+
+/* Icon 圖片本身樣式 */
 .navbar .icon {
   width: 28px;
   height: 28px;
   opacity: 0.7;
-}
-
-.icons .nav-item {
-  margin: 0;
-  padding: 0;
-}
-
-.icons .nav-item::after {
-  display: none !important;
-}
-
-.icon {
+  display: block;
   transition: opacity 0.2s ease-in-out;
 }
 
-.nav-item:hover .icon {
+.navbar .icons .nav-item:hover .icon {
   opacity: 1;
-  /* 原本是 0.7，可設成 1 */
 }
-
 
 .container {
   max-width: 1000px;
